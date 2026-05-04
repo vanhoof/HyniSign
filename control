@@ -1,0 +1,8 @@
+Package: com.local.hynisign
+Name: HyniSign
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Strips kSecAttrAccessGroup so re-signed Minecraft Bedrock can use keychain
+Maintainer: local
+Author: local
+Section: Tweaks
