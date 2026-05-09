@@ -2,7 +2,7 @@
 
 Restores Microsoft / Xbox Live sign-in for sideloaded Minecraft: Bedrock Edition on non-jailbroken iOS / iPadOS.
 
-Designed to be injected alongside [HynisLoader](https://github.com/congcq/HynisLoader)'s `MaterialLoader.dylib` so you can run RenderDragon shader packs **and** sign into your Microsoft account on the same install.
+Designed to be injected alongside [HynisLoader](https://github.com/congcq/HynisLoader)'s `libhynisloader.dylib` so you can run RenderDragon shader packs **and** sign into your Microsoft account on the same install.
 
 ## The problem
 
@@ -39,7 +39,7 @@ Should work on other iOS / iPadOS versions in roughly the same generation. Earli
 
 - **Does not bypass App Attest / DeviceCheck.** Microsoft doesn't require those for the Xbox Live iOS sign-in path at the time of writing. If they add it, this fix won't be enough on its own.
 - **Does not sign or install the IPA.** That's Sideloadly's job.
-- **Does not provide the patched Minecraft IPA.** You need a base IPA already injected with HynisLoader's `MaterialLoader.dylib`. This repo only adds the auth fix on top.
+- **Does not provide the patched Minecraft IPA.** You need a base IPA already injected with HynisLoader's `libhynisloader.dylib`. This repo only adds the auth fix on top.
 
 ## Build
 
@@ -81,9 +81,9 @@ bash tests/check-build.sh   # then verify it
 
 1. Open **Sideloadly** on your Mac (or Windows).
 2. Plug in your iPad / iPhone, trust the computer.
-3. **Make sure your IPA contains both `MaterialLoader.dylib` (HynisLoader) and `HyniSign.dylib` (this project).** Two ways to set that up:
-   - **Bundle at patch time** — include `build/HyniSign.dylib` alongside `MaterialLoader.dylib` when you patch the Minecraft IPA with HynisLoader's tooling. Both dylibs end up inside the IPA before you ever hand it to Sideloadly.
-   - **Inject at sign time** — start with a HynisLoader-only IPA (just `MaterialLoader.dylib` inside) and let Sideloadly add `HyniSign.dylib` via its **Inject dylibs/deb/bundle** option (step 5 below).
+3. **Make sure your IPA contains both `libhynisloader.dylib` (HynisLoader) and `HyniSign.dylib` (this project).** Two ways to set that up:
+   - **Bundle at patch time** — include `build/HyniSign.dylib` alongside `libhynisloader.dylib` when you patch the Minecraft IPA with HynisLoader's tooling. Both dylibs end up inside the IPA before you ever hand it to Sideloadly.
+   - **Inject at sign time** — start with a HynisLoader-only IPA (just `libhynisloader.dylib` inside) and let Sideloadly add `HyniSign.dylib` via its **Inject dylibs/deb/bundle** option (step 5 below).
 
    Either path works; the resulting installed app is identical. If you already have a HynisLoader-only IPA and don't want to re-pack it, take the inject-at-sign-time path.
 4. Drag the IPA onto the Sideloadly window. Click the **gear icon → Advanced options**.
@@ -128,7 +128,7 @@ The fix explicitly does not bypass App Attest / DeviceCheck. Those would require
 
 ## Acknowledgments
 
-- [HynisLoader](https://github.com/congcq/HynisLoader) by congcq — the upstream MaterialLoader / RenderDragon shader-loading dylib this fix is meant to coexist with.
+- [HynisLoader](https://github.com/congcq/HynisLoader) by congcq — the upstream RenderDragon shader-loading dylib (`libhynisloader.dylib`) this fix is meant to coexist with.
 - [fishhook](https://github.com/facebook/fishhook) by Facebook — the symbol-rebinding library that makes this hook work on non-jailbroken iOS. Vendored into this repo as `fishhook.c` / `fishhook.h`.
 
 ## License
